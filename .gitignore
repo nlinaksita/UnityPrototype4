@@ -3,3 +3,8 @@ Library/
 Logs/
 Packages/
 ProjectSettings/
+.vs/
+.vsconfig
+Prototype 4.sln
+Assembly-CSharp.csproj
+obj/
