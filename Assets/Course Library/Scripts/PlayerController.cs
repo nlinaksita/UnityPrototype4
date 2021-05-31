@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public bool hasPowerup;
     public GameObject[] powerupIndicator;
+    public GameObject rocket;
     public Text playerLivesText;
+    private const int numRockets = 6;
 
     private const string PU_BOUNCE = "Powerup_Bounce(Clone)";
     private const string PU_ROCKETS = "Powerup_Rockets(Clone)";
@@ -72,7 +74,7 @@ public class PlayerController : MonoBehaviour
         {
             hasPowerup = true;
             Destroy(other.gameObject);
-            Debug.Log(other.gameObject.name);
+            //Debug.Log(other.gameObject.name);
             // Choose which powerup indicator to display
             switch (other.gameObject.name)
             {
@@ -113,6 +115,28 @@ public class PlayerController : MonoBehaviour
 
     private void FireRockets()
     {
+        /*
+        // For every enemy on the field, spawn a rocket at player position
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            // Find the direction the rocket should face
+            Vector3 direction = (enemies[i].transform.position - transform.position);
+            float angle = Vector3.Angle(direction, transform.forward);
+            Debug.Log(angle);
+            Vector3 rotationVector = new Vector3(0, angle, 0);
+            Quaternion rotation = Quaternion.Euler(rotationVector);
+            Instantiate(rocket, gameObject.transform.position, rotation);
+            rocket.GetComponent<Rigidbody>().AddForce(
+                (enemies[i].transform.position - transform.position).normalized * 100);
+        }
+        */
+
+        for (int i = 0; i < numRockets; i++)
+        {
+            float rotation = (360 / (float)numRockets)*i;
+            Instantiate(rocket, gameObject.transform.position, Quaternion.Euler(0, rotation, 0));
+        }
 
     }
 

@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     {
         SpawnEnemyWave(waveNumber);
         int powerupIndex = Random.Range(0, powerupPrefabs.Length);
-        Debug.Log(powerupIndex);
+        //Debug.Log(powerupIndex);
         Instantiate(powerupPrefabs[powerupIndex], 
             GenerateSpawnPosition(), 
             powerupPrefabs[powerupIndex].transform.rotation);
@@ -33,7 +33,7 @@ public class SpawnManager : MonoBehaviour
             // Only spawn a powerup if there is not one already on the field
             if (FindObjectsOfType<Powerup>().Length == 0) { 
                 int powerupIndex = Random.Range(0, powerupPrefabs.Length);
-                Debug.Log(powerupIndex);
+                //Debug.Log(powerupIndex);
                 Instantiate(powerupPrefabs[powerupIndex], 
                     GenerateSpawnPosition(), 
                     powerupPrefabs[powerupIndex].transform.rotation);
