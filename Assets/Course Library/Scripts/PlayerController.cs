@@ -66,6 +66,15 @@ public class PlayerController : MonoBehaviour
                 gameObject.transform.position = Vector3.zero;
             }
         }
+
+        // if the player has the rocket powerup, pressing space fires
+        if (hasPowerup && powerupIndex == 1)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                FireRockets();
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -131,10 +140,11 @@ public class PlayerController : MonoBehaviour
                 (enemies[i].transform.position - transform.position).normalized * 100);
         }
         */
-
+        float relativeAngle = Random.Range(0f, 90f);
         for (int i = 0; i < numRockets; i++)
         {
-            float rotation = (360 / (float)numRockets)*i;
+            // Evenly distribute rockets around the player relative to a random rotation
+            float rotation = (360 / (float)numRockets)*i + relativeAngle;
             Instantiate(rocket, gameObject.transform.position, Quaternion.Euler(0, rotation, 0));
         }
 
