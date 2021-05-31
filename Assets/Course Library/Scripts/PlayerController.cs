@@ -7,12 +7,16 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public bool hasPowerup;
-    public GameObject powerupIndicator;
+    public GameObject[] powerupIndicator;
     public Text playerLivesText;
+
+    private const string PU_BOUNCE = "Powerup_Bounce(Clone)";
+    private const string PU_ROCKETS = "Powerup_Rockets(Clone)";
 
     private int playerLives;
     private Rigidbody playerRb;
     private GameObject focalPoint;
+    private int powerupIndex;
     private float powerupStrength = 15.0f;
     // Start is called before the first frame update
     void Start()
@@ -31,7 +35,7 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
         playerRb.AddForce(focalPoint.transform.right * speed * horizontalInput);
-        powerupIndicator.transform.position = transform.position + new Vector3(0, 1f, 0);
+        powerupIndicator[powerupIndex].transform.position = transform.position + new Vector3(0, 1f, 0);
 
         // If the player falls off the stage
         if (gameObject.transform.position.y < -10)
@@ -47,8 +51,11 @@ public class PlayerController : MonoBehaviour
                 playerLivesText.text = "x " + playerLives;
 
                 // If the player has a powerup and falls, remove the powerup indicator
-                hasPowerup = false;
-                powerupIndicator.gameObject.SetActive(false);
+                if (hasPowerup)
+                {
+                    hasPowerup = false;
+                    powerupIndicator[powerupIndex].gameObject.SetActive(false);
+                }
 
                 // Remove any previous force on the object to prevent it from moving when it respawns
                 playerRb.velocity = Vector3.zero;
@@ -65,7 +72,19 @@ public class PlayerController : MonoBehaviour
         {
             hasPowerup = true;
             Destroy(other.gameObject);
-            powerupIndicator.gameObject.SetActive(true);
+            Debug.Log(other.gameObject.name);
+            // Choose which powerup indicator to display
+            switch (other.gameObject.name)
+            {
+                case PU_BOUNCE:
+                    powerupIndex = 0;
+                    break;
+                case PU_ROCKETS:
+                    powerupIndex = 1;
+                    FireRockets();
+                    break;
+            }
+            powerupIndicator[powerupIndex].gameObject.SetActive(true);
             StartCoroutine(PowerupCountdownRoutine());
         }
     }
@@ -74,12 +93,13 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(7);
         hasPowerup = false;
-        powerupIndicator.gameObject.SetActive(false);
+        powerupIndicator[powerupIndex].gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && hasPowerup)
+        // Bounce powerup pushes enemies (powerupIndex == 0)
+        if (collision.gameObject.CompareTag("Enemy") && hasPowerup && powerupIndex == 0)
         {
             Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position);
@@ -89,6 +109,11 @@ public class PlayerController : MonoBehaviour
 
             enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
         }
+    }
+
+    private void FireRockets()
+    {
+
     }
 
     public void GameOver()

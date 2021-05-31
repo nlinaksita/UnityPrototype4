@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public GameObject powerupPrefab;
+    public GameObject[] powerupPrefabs;
     public int enemyCount;
     public int waveNumber = 1;
     private float spawnRange = 9;
@@ -13,7 +13,11 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         SpawnEnemyWave(waveNumber);
-        Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
+        int powerupIndex = Random.Range(0, powerupPrefabs.Length);
+        Debug.Log(powerupIndex);
+        Instantiate(powerupPrefabs[powerupIndex], 
+            GenerateSpawnPosition(), 
+            powerupPrefabs[powerupIndex].transform.rotation);
     }
 
     // Update is called once per frame
@@ -27,8 +31,13 @@ public class SpawnManager : MonoBehaviour
             SpawnEnemyWave(waveNumber);
 
             // Only spawn a powerup if there is not one already on the field
-            if (FindObjectsOfType<Powerup>().Length == 0)
-                Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
+            if (FindObjectsOfType<Powerup>().Length == 0) { 
+                int powerupIndex = Random.Range(0, powerupPrefabs.Length);
+                Debug.Log(powerupIndex);
+                Instantiate(powerupPrefabs[powerupIndex], 
+                    GenerateSpawnPosition(), 
+                    powerupPrefabs[powerupIndex].transform.rotation);
+            }
         }
     }
 
