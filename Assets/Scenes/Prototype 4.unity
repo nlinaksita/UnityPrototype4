@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab:
   - {fileID: 5587626751978771116, guid: 310e9f7b031788e47bb4bcff836cdbd1, type: 3}
-  - {fileID: 1038367385901593382, guid: 6d73e3bf49a9e0b43959b33adbabdb40, type: 3}
+  - {fileID: 3219001206002414065, guid: 22dc25e51bee8f742bf1fb04009b393d, type: 3}
   powerupPrefabs:
   - {fileID: 660492575473547985, guid: 44cdea6498518d54b99e0cd68b3a3e3a, type: 3}
   - {fileID: 3856568079584807572, guid: e03353245aad80941ab61d2c68d1fda8, type: 3}
@@ -811,7 +811,7 @@ GameObject:
   - component: {fileID: 1143100211}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
