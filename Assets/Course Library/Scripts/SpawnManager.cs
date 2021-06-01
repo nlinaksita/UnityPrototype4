@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] powerupPrefabs;
     public int enemyCount;
     public int waveNumber = 1;
+    public Text waveNumberText;
     private float spawnRange = 9;
     private float powerupSpawnTime = 7f;
     // Start is called before the first frame update
@@ -25,7 +27,10 @@ public class SpawnManager : MonoBehaviour
         {
             // Increase the wave number
             waveNumber++;
-            SpawnEnemyWave(waveNumber);
+            waveNumberText.text = "Wave Number: " + waveNumber;
+            // Spawn random enemies from waves 1-9; save wave 10 for a boss fight
+            if (waveNumber < 10)
+                SpawnEnemyWave(waveNumber);
 
             // Only spawn a powerup if there is not one already on the field
             //if (FindObjectsOfType<Powerup>().Length == 0) {
