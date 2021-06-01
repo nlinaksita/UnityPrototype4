@@ -32,7 +32,7 @@ public class Rocket : MonoBehaviour
     {
         if (collision.CompareTag("Enemy")) 
         {
-            Debug.Log("Rocket hit an enemy!");
+            //Debug.Log("Rocket hit an enemy!");
             Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position);
             enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);

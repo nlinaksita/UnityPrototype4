@@ -10,11 +10,13 @@ public class PlayerController : MonoBehaviour
     public GameObject[] powerupIndicator;
     public GameObject rocket;
     public Text playerLivesText;
+    public GameObject forceField;
     private const int numRockets = 6;
 
     private const string PU_BOUNCE = "Powerup_Bounce(Clone)";
     private const string PU_ROCKETS = "Powerup_Rockets(Clone)";
     private const string PU_STOMP = "Powerup_Stomp(Clone)";
+    private const string PU_REPEL = "Powerup_Repel(Clone)";
 
     private int playerLives;
     private Rigidbody playerRb;
@@ -65,6 +67,10 @@ public class PlayerController : MonoBehaviour
                     powerupIndicator[powerupIndex].gameObject.SetActive(false);
                     // stop the powerup countdown coroutine
                     StopCoroutine(PowerupCountdownRoutine());
+
+                    // Disable force field
+                    forceField.gameObject.SetActive(false);
+                    StopCoroutine(DisableForceField());
                 }
 
                 // Remove any previous force on the object to prevent it from moving when it respawns
@@ -114,6 +120,10 @@ public class PlayerController : MonoBehaviour
                     break;
                 case PU_STOMP:
                     powerupIndex = 2;
+                    break;
+                case PU_REPEL:
+                    powerupIndex = 3;
+                    EnableForceField();
                     break;
             }
             powerupIndicator[powerupIndex].gameObject.SetActive(true);
@@ -211,12 +221,13 @@ public class PlayerController : MonoBehaviour
             Vector3 awayFromPlayer = (enemies[i].transform.position - transform.position);
             // calculate the distance from the enemy to the player
             float distance = Mathf.Abs((awayFromPlayer).magnitude);
-            Debug.Log(distance);
+            //Debug.Log(distance);
             if (distance <= stompRange)
             {
+                // apply force to enemy (enemies further away will be affected less than those closer)
                 float stompMagPower = Mathf.Abs(distance - stompRange)/stompRange;
-                Debug.Log(stompMagPower * powerupStrength);
-                // apply force to enemy (
+                //Debug.Log(stompMagPower * powerupStrength);
+                
                 enemies[i].GetComponent<Rigidbody>().AddForce(awayFromPlayer * powerupStrength
                     * stompMagPower, ForceMode.Impulse);
             }
@@ -224,6 +235,19 @@ public class PlayerController : MonoBehaviour
 
         // reset stomping flag
         isStomping = false;
+    }
+
+    private void EnableForceField()
+    {
+        // Enable force field
+        forceField.gameObject.SetActive(true);
+        StartCoroutine(DisableForceField());
+    }
+
+    IEnumerator DisableForceField()
+    {
+        yield return new WaitForSeconds(7);
+        forceField.gameObject.SetActive(false);
     }
 
     public void GameOver()
