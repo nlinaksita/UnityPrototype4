@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private const string PU_BOUNCE = "Powerup_Bounce(Clone)";
     private const string PU_ROCKETS = "Powerup_Rockets(Clone)";
+    private const string PU_STOMP = "Powerup_Stomp(Clone)";
 
     private int playerLives;
     private Rigidbody playerRb;
@@ -93,6 +94,9 @@ public class PlayerController : MonoBehaviour
                 case PU_ROCKETS:
                     powerupIndex = 1;
                     FireRockets();
+                    break;
+                case PU_STOMP:
+                    powerupIndex = 2;
                     break;
             }
             powerupIndicator[powerupIndex].gameObject.SetActive(true);

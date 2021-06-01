@@ -7,7 +7,7 @@ public class Rocket : MonoBehaviour
     private Rigidbody rocketRb;
     private const int xBounds = 20;
     private const int zBounds = 30;
-    private float powerupStrength = 20f;
+    private float powerupStrength = 30f;
     // Start is called before the first frame update
     void Start()
     {
