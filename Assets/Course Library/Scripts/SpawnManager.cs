@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
             waveNumber++;
             waveNumberText.text = "Wave Number: " + waveNumber;
             // Spawn random enemies from waves 1-9; save wave 10 for a boss fight
-            if (waveNumber < 10)
+            //if (waveNumber < 10)
                 SpawnEnemyWave(waveNumber);
 
             // Only spawn a powerup if there is not one already on the field
