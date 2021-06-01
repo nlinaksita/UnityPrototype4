@@ -5,7 +5,7 @@ using UnityEngine;
 public class ForceField : MonoBehaviour
 {
     public GameObject player;
-    private float powerupStrength = 5f;
+    private float powerupStrength = 10f;
     // Start is called before the first frame update
     void Start()
     {
