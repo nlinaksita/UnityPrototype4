@@ -20,9 +20,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private GameObject focalPoint;
     private int powerupIndex;
-    private float powerupStrength = 20.0f;
+    private float powerupStrength = 15.0f;
     private float stompPower = 50f;
-    private float stompRange = 8f;
+    private float stompRange = 5f;
     private bool isStomping = false;
     // Start is called before the first frame update
     void Start()
@@ -63,6 +63,8 @@ public class PlayerController : MonoBehaviour
                 {
                     hasPowerup = false;
                     powerupIndicator[powerupIndex].gameObject.SetActive(false);
+                    // stop the powerup countdown coroutine
+                    StopCoroutine(PowerupCountdownRoutine());
                 }
 
                 // Remove any previous force on the object to prevent it from moving when it respawns
@@ -212,11 +214,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log(distance);
             if (distance <= stompRange)
             {
-                float stompMagPower = Mathf.Abs(distance - (stompRange + 1));
-                Debug.Log(stompMagPower);
+                float stompMagPower = Mathf.Abs(distance - stompRange)/stompRange;
+                Debug.Log(stompMagPower * powerupStrength);
                 // apply force to enemy (
                 enemies[i].GetComponent<Rigidbody>().AddForce(awayFromPlayer * powerupStrength
-                    * stompMagPower);
+                    * stompMagPower, ForceMode.Impulse);
             }
         }
 

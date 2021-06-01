@@ -9,15 +9,12 @@ public class SpawnManager : MonoBehaviour
     public int enemyCount;
     public int waveNumber = 1;
     private float spawnRange = 9;
+    private float powerupSpawnTime = 7f;
     // Start is called before the first frame update
     void Start()
     {
         SpawnEnemyWave(waveNumber);
-        int powerupIndex = Random.Range(0, powerupPrefabs.Length);
-        //Debug.Log(powerupIndex);
-        Instantiate(powerupPrefabs[powerupIndex], 
-            GenerateSpawnPosition(), 
-            powerupPrefabs[powerupIndex].transform.rotation);
+        SpawnPowerup();
     }
 
     // Update is called once per frame
@@ -31,14 +28,31 @@ public class SpawnManager : MonoBehaviour
             SpawnEnemyWave(waveNumber);
 
             // Only spawn a powerup if there is not one already on the field
-            if (FindObjectsOfType<Powerup>().Length == 0) { 
-                int powerupIndex = Random.Range(0, powerupPrefabs.Length);
-                //Debug.Log(powerupIndex);
-                Instantiate(powerupPrefabs[powerupIndex], 
-                    GenerateSpawnPosition(), 
-                    powerupPrefabs[powerupIndex].transform.rotation);
+            if (FindObjectsOfType<Powerup>().Length == 0) {
+                SpawnPowerup();
             }
+            // if the wave did not start with a powerup, start a coroutine to spawn one within
+            // a certain time
+            //else
+            //{
+            //    StartCoroutine(SpawnPowerupDelay());
+            //}
         }
+    }
+
+    void SpawnPowerup()
+    {
+        int powerupIndex = Random.Range(0, powerupPrefabs.Length);
+        //Debug.Log(powerupIndex);
+        Instantiate(powerupPrefabs[powerupIndex],
+            GenerateSpawnPosition(),
+            powerupPrefabs[powerupIndex].transform.rotation);
+    }
+
+    IEnumerator SpawnPowerupDelay()
+    {
+        yield return new WaitForSeconds(powerupSpawnTime);
+        SpawnPowerup();
     }
 
     void SpawnEnemyWave(int enemiesToSpawn)
