@@ -907,6 +907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76fd320173b2d954995a6fddc067b74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rocket: {fileID: 8964012075948366826, guid: e32d0feb4858bb64180efc182a2d9ef2, type: 3}
   speed: 10
   hasPowerup: 0
   powerupIndicator:
@@ -914,7 +915,6 @@ MonoBehaviour:
   - {fileID: 796720490}
   - {fileID: 1293676280392049087}
   - {fileID: 713318075}
-  rocket: {fileID: 8964012075948366826, guid: e32d0feb4858bb64180efc182a2d9ef2, type: 3}
   playerLivesText: {fileID: 1152128576}
   forceField: {fileID: 164649234}
 --- !u!135 &1143100207
@@ -1321,7 +1321,7 @@ GameObject:
   - component: {fileID: 1255321440}
   - component: {fileID: 1255321441}
   m_Layer: 0
-  m_Name: FireProjectiles
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyArcher : FireProjectiles
+public class EnemyArcher : Character
 {
     private int numRockets = 6;
     private float fireRate = 3f;

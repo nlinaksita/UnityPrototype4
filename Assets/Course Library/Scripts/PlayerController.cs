@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
     public float speed;
     public bool hasPowerup;
     public GameObject[] powerupIndicator;
-    public GameObject rocket;
     public Text playerLivesText;
     public GameObject forceField;
     private const int numRockets = 6;
@@ -88,7 +87,7 @@ public class PlayerController : MonoBehaviour
             {
                 // rocket powerup
                 case 1:
-                    FireRockets();
+                    FireRockets(numRockets);
                     break;
                 // stomp powerup
                 case 2:
@@ -125,7 +124,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case PU_ROCKETS:
                     powerupIndex = 1;
-                    FireRockets();
+                    FireRockets(numRockets);
                     break;
                 case PU_STOMP:
                     powerupIndex = 2;
@@ -160,34 +159,6 @@ public class PlayerController : MonoBehaviour
 
             enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
         }
-    }
-
-    private void FireRockets()
-    {
-        /*
-        // For every enemy on the field, spawn a rocket at player position
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            // Find the direction the rocket should face
-            Vector3 direction = (enemies[i].transform.position - transform.position);
-            float angle = Vector3.Angle(direction, transform.forward);
-            Debug.Log(angle);
-            Vector3 rotationVector = new Vector3(0, angle, 0);
-            Quaternion rotation = Quaternion.Euler(rotationVector);
-            Instantiate(rocket, gameObject.transform.position, rotation);
-            rocket.GetComponent<Rigidbody>().AddForce(
-                (enemies[i].transform.position - transform.position).normalized * 100);
-        }
-        */
-        float relativeAngle = Random.Range(0f, 90f);
-        for (int i = 0; i < numRockets; i++)
-        {
-            // Evenly distribute rockets around the player relative to a random rotation
-            float rotation = (360 / (float)numRockets)*i + relativeAngle;
-            Instantiate(rocket, gameObject.transform.position, Quaternion.Euler(0, rotation, 0));
-        }
-
     }
 
     private void StompUp()

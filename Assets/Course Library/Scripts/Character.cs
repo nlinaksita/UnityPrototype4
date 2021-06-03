@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireProjectiles : MonoBehaviour
+public class Character : MonoBehaviour
 {
     public GameObject rocket;
     // Start is called before the first frame update
@@ -16,6 +16,7 @@ public class FireProjectiles : MonoBehaviour
     {
         
     }
+
     // rockets: Number of rockets
     public void FireRockets(int rockets)
     {
