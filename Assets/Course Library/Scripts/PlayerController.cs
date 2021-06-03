@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private GameObject focalPoint;
     private int powerupIndex;
-    private float powerupStrength = 15.0f;
+    private float powerupStrength = 10.0f;
     private float stompPower = 50f;
     private float stompRange = 5f;
     private bool isStomping = false;
@@ -98,6 +98,15 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
             }
+        }
+    }
+
+    // Create property for powerup strength
+    public float PowerupStrength
+    {
+        get
+        {
+            return powerupStrength;
         }
     }
 
