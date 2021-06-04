@@ -22,9 +22,9 @@ public class PlayerController : Character
     private GameObject focalPoint;
     private int powerupIndex;
     private float powerupStrength = 10.0f;
+    private float jumpPower = 10.0f;
     private float stompPower = 50f;
     private float stompRange = 5f;
-    private bool isStomping = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +34,6 @@ public class PlayerController : Character
         // Start off with 3 lives
         playerLives = 3;
 
-        isStomping = false;
     }
 
     // Update is called once per frame
@@ -163,58 +162,13 @@ public class PlayerController : Character
 
     private void StompUp()
     {
-        // Set flag so that cannot interrupt stomp with another stomp
-        isStomping = true;
-
-        // Stop velocity
-        playerRb.velocity = Vector3.zero;
-        playerRb.angularVelocity = Vector3.zero;
-
-        // Reset rotation
-        transform.rotation.eulerAngles.Set(0, 0, 0);
-
-        // Apply upward force
-        playerRb.AddForce(Vector3.up * powerupStrength, ForceMode.Impulse);
-
-        StartCoroutine(StompDown());
-    }
-
-    // Player stomps down after short delay
-    private IEnumerator StompDown()
-    {
-        yield return new WaitForSeconds(0.3f);
-        // Apply downward force
-        playerRb.AddForce(Vector3.down * stompPower, ForceMode.Impulse);
-
-        StartCoroutine(StompPushEnemies());
-    }
-
-    // Stomp applies force to enemies if they are within range
-    private IEnumerator StompPushEnemies()
-    {
-        yield return new WaitForSeconds(0.2f);
-
-        // Iterate over enemies and check if they are within stompRange
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            Vector3 awayFromPlayer = (enemies[i].transform.position - transform.position);
-            // calculate the distance from the enemy to the player
-            float distance = Mathf.Abs((awayFromPlayer).magnitude);
-            //Debug.Log(distance);
-            if (distance <= stompRange)
-            {
-                // apply force to enemy (enemies further away will be affected less than those closer)
-                float stompMagPower = Mathf.Abs(distance - stompRange)/stompRange;
-                //Debug.Log(stompMagPower * powerupStrength);
-                
-                enemies[i].GetComponent<Rigidbody>().AddForce(awayFromPlayer * powerupStrength
-                    * stompMagPower, ForceMode.Impulse);
-            }
-        }
-
-        // reset stomping flag
-        isStomping = false;
+        StompUp(playerRb,
+            jumpPower,
+            stompPower,
+            powerupStrength,
+            stompRange,
+            TYPE_PLAYER
+            );
     }
 
     private void EnableForceField()

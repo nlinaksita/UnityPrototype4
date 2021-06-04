@@ -7,9 +7,11 @@ public class Character : MonoBehaviour
     public GameObject rocket;
     public const int TYPE_PLAYER = 0;
     public const int TYPE_ENEMY = 1;
+    protected bool isStomping;
     // Start is called before the first frame update
     void Start()
     {
+        isStomping = false;
     }
 
     // Update is called once per frame
@@ -35,6 +37,8 @@ public class Character : MonoBehaviour
     // sr = stomp range, type = 0: rb is player, type = 1: rb is enemy
     public void StompUp(Rigidbody rb, float jp, float sp, float ps, float sr, int type)
     {
+        isStomping = true;
+
         // Stop velocity
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -81,6 +85,8 @@ public class Character : MonoBehaviour
                     ps);
                 break;
         }
+
+        isStomping = false;
     }
 
 
