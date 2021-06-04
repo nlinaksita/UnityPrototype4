@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyArcher : Character
+public class EnemyArcher : Enemy
 {
     private int numRockets = 6;
     private float fireRate = 3f;
+    private float archerSpeed = 5f;
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
+        speed = archerSpeed;
         FireRockets(numRockets);
         StartCoroutine(FireRocketsRoutine());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     IEnumerator FireRocketsRoutine()
     {

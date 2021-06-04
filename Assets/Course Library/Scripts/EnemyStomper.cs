@@ -2,33 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStomper : Character
+public class EnemyStomper : Enemy
 {
-    private bool isStomping = false;
-    private Rigidbody enemyRb;
+    private float stomperSpeed = 10f;
     private float powerupStrength = 8f;
     private float jumpPower = 50f;
     private float stompPower = 100f;
     private float stompRange = 7f;
     private float stompRate = 5f;
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        enemyRb = gameObject.GetComponent<Rigidbody>();
+        base.Start();
+        speed = stomperSpeed;
         StartCoroutine(StompUp());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     IEnumerator StompUp()
     {
         yield return new WaitForSeconds(stompRate);
-        // Set flag so that cannot interrupt stomp with another stomp
-        isStomping = true;
         StompUp(enemyRb,
             jumpPower,
             stompPower,

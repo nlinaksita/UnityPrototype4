@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Character
 {
-    Rigidbody enemyRb;
+    public Rigidbody enemyRb;
     GameObject player;
     public float speed;
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
-        enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
+        enemyRb = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        enemyRb.AddForce((player.transform.position - transform.position).normalized * speed);
+        
+        enemyRb.AddForce((player.transform.position - gameObject.transform.position).normalized * speed);
         if (gameObject.transform.position.y < -10)
         {
             Destroy(gameObject);

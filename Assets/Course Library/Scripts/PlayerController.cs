@@ -127,6 +127,7 @@ public class PlayerController : Character
                     break;
                 case PU_STOMP:
                     powerupIndex = 2;
+                    StompUp();
                     break;
                 case PU_REPEL:
                     powerupIndex = 3;

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1038367385901593386}
   - component: {fileID: 1038367385901593387}
   - component: {fileID: 1038367385901593380}
-  - component: {fileID: 1038367385901593381}
   - component: {fileID: 114890752960982374}
   m_Layer: 0
   m_Name: Enemy_Stomper
@@ -110,19 +109,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1038367385901593381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1038367385901593382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e30532fb8ee59704bb8ebb2cd159f7f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
 --- !u!114 &114890752960982374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,3 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc7709a25e022b4da351ba195d3e284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rocket: {fileID: 0}
+  enemy: {fileID: 0}
+  enemyRb: {fileID: 0}
+  speed: 0
