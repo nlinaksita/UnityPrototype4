@@ -75,7 +75,7 @@ public class PlayerController : Character
                 playerRb.velocity = Vector3.zero;
                 playerRb.angularVelocity = Vector3.zero;
                 // Reset the player position
-                gameObject.transform.position = Vector3.zero;
+                transform.ResetTransformation();
             }
         }
 
@@ -86,7 +86,7 @@ public class PlayerController : Character
             {
                 // rocket powerup
                 case 1:
-                    FireRockets(numRockets);
+                    FireRockets();
                     break;
                 // stomp powerup
                 case 2:
@@ -123,7 +123,7 @@ public class PlayerController : Character
                     break;
                 case PU_ROCKETS:
                     powerupIndex = 1;
-                    FireRockets(numRockets);
+                    FireRockets();
                     break;
                 case PU_STOMP:
                     powerupIndex = 2;

@@ -21,6 +21,7 @@ public class Character : MonoBehaviour
     }
 
     // rockets: Number of rockets
+    // FireRockets enemy version where rockets are not homing rockets
     public void FireRockets(int rockets)
     {
         float relativeAngle = Random.Range(0f, 90f);
@@ -29,6 +30,20 @@ public class Character : MonoBehaviour
             // Evenly distribute rockets around the player relative to a random rotation
             float rotation = (360 / (float)rockets) * i + relativeAngle;
             Instantiate(rocket, gameObject.transform.position, Quaternion.Euler(0, rotation, 0));
+        }
+    }
+
+    public void FireRockets()
+    {
+        Enemy[] targets = FindObjectsOfType<Enemy>();
+
+        for (int i = 0; i < targets.Length; i++)
+        {
+            // Calculate the relative position
+            Vector3 relativePos = targets[i].transform.position - transform.position;
+            GameObject instantiated = Instantiate(rocket, gameObject.transform.position, Quaternion.LookRotation(relativePos));
+            Rocket r = instantiated.gameObject.GetComponent<Rocket>();
+            r.target = targets[i].gameObject;
         }
     }
 
