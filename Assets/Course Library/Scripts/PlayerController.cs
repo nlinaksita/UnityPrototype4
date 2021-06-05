@@ -26,7 +26,7 @@ public class PlayerController : Character
     private float powerupStrength = 10.0f;
     private float jumpPower = 20.0f;
     private float stompPower = 50f;
-    private float stompRange = 5f;
+    private float stompRange = 8f;
     // Start is called before the first frame update
     void Start()
     {

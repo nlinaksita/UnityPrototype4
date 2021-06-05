@@ -26,6 +26,7 @@ public class EventManager : MonoBehaviour
     {
         Time.timeScale = 1;
         instructions.gameObject.SetActive(false);
+        
     }
 
     public void OnInstructionsClick()

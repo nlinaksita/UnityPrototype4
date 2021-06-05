@@ -10,7 +10,7 @@ public class Enemy : Character
     // Start is called before the first frame update
     public virtual void Start()
     {
-        player = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         enemyRb = gameObject.GetComponent<Rigidbody>();
     }
 
