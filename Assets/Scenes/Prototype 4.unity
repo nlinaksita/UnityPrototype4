@@ -2930,7 +2930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rocket: {fileID: 8964012075948366826, guid: e32d0feb4858bb64180efc182a2d9ef2, type: 3}
-  speed: 2.5
+  speed: 10
   hasPowerup: 0
   powerupIndicator:
   - {fileID: 1437879078}

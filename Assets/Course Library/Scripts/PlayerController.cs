@@ -27,6 +27,9 @@ public class PlayerController : Character
     private float jumpPower = 20.0f;
     private float stompPower = 50f;
     private float stompRange = 8f;
+
+    private Coroutine disableForceField;
+    private Coroutine powerupCountdown;
     // Start is called before the first frame update
     void Start()
     {
@@ -71,11 +74,11 @@ public class PlayerController : Character
                     hasPowerup = false;
                     powerupIndicator[powerupIndex].gameObject.SetActive(false);
                     // stop the powerup countdown coroutine
-                    StopCoroutine(PowerupCountdownRoutine());
+                    StopCoroutine(powerupCountdown);
 
                     // Disable force field
                     forceField.gameObject.SetActive(false);
-                    StopCoroutine(DisableForceField());
+                    StopCoroutine(disableForceField);
                 }
 
                 // Remove any previous force on the object to prevent it from moving when it respawns
@@ -143,7 +146,7 @@ public class PlayerController : Character
             }
             powerupIndicator[powerupIndex].gameObject.SetActive(true);
             FindObjectOfType<AudioManager>().Play("PowerupPickup");
-            StartCoroutine(PowerupCountdownRoutine());
+            powerupCountdown = StartCoroutine(PowerupCountdownRoutine());
         }
     }
 
@@ -186,7 +189,7 @@ public class PlayerController : Character
         // Enable force field
         forceField.gameObject.SetActive(true);
         FindObjectOfType<AudioManager>().Play("PlayerForceFieldUp");
-        StartCoroutine(DisableForceField());
+        disableForceField = StartCoroutine(DisableForceField());
     }
 
     IEnumerator DisableForceField()

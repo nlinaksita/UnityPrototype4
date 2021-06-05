@@ -6,7 +6,7 @@ public class EnemyArcher : Enemy
 {
     private int numRockets = 6;
     private float fireRate = 3f;
-    private float archerSpeed = 1f;
+    private float archerSpeed = 2f;
     // Start is called before the first frame update
     public override void Start()
     {

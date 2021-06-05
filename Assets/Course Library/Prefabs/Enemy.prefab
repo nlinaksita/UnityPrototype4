@@ -125,4 +125,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rocket: {fileID: 0}
   enemyRb: {fileID: 0}
-  speed: 1
+  speed: 5
