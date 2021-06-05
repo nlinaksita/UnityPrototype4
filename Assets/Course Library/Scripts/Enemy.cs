@@ -17,11 +17,13 @@ public class Enemy : Character
     // Update is called once per frame
     void Update()
     {
-        
-        enemyRb.AddForce((player.transform.position - gameObject.transform.position).normalized * speed);
-        if (gameObject.transform.position.y < -10)
+        if (Time.timeScale != 0)
         {
-            Destroy(gameObject);
+            enemyRb.AddForce((player.transform.position - gameObject.transform.position).normalized * speed);
+            if (gameObject.transform.position.y < -10)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

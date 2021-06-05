@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] enemyPrefab;
     public GameObject[] powerupPrefabs;
     public int enemyCount;
-    public int waveNumber = 1;
+    public static int waveNumber = 1;
     public Text waveNumberText;
     private float spawnRange = 9;
     private float powerupSpawnTime = 7f;

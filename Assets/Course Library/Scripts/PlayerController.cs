@@ -12,6 +12,7 @@ public class PlayerController : Character
     public GameObject forceField;
     private const int numRockets = 6;
     public GameObject gameOverUI;
+    public Text finalScore;
 
     private const string PU_BOUNCE = "Powerup_Bounce(Clone)";
     private const string PU_ROCKETS = "Powerup_Rockets(Clone)";
@@ -29,7 +30,6 @@ public class PlayerController : Character
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 1;
         playerRb = GetComponent<Rigidbody>();
         focalPoint = GameObject.Find("Focal Point");
         gameOverUI.gameObject.SetActive(false);
@@ -44,8 +44,11 @@ public class PlayerController : Character
     {
         float forwardInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
-        playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
-        playerRb.AddForce(focalPoint.transform.right * speed * horizontalInput);
+        if (Time.timeScale != 0)
+        {
+            playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
+            playerRb.AddForce(focalPoint.transform.right * speed * horizontalInput);
+        }
         powerupIndicator[powerupIndex].transform.position = transform.position + new Vector3(0, 1f, 0);
 
         // If the player falls off the stage
@@ -193,5 +196,6 @@ public class PlayerController : Character
         Time.timeScale = 0;
         //Debug.Log("Game Over");
         gameOverUI.gameObject.SetActive(true);
+        finalScore.text = "Final Score: " + SpawnManager.waveNumber;
     }
 }
