@@ -28,20 +28,7 @@ public class SpawnManager : MonoBehaviour
             // Increase the wave number
             waveNumber++;
             waveNumberText.text = "Wave Number: " + waveNumber;
-            // Spawn random enemies from waves 1-9; save wave 10 for a boss fight
-            //if (waveNumber < 10)
-                SpawnEnemyWave(waveNumber);
-
-            // Only spawn a powerup if there is not one already on the field
-            //if (FindObjectsOfType<Powerup>().Length == 0) {
-            //    SpawnPowerup();
-            //}
-            // if the wave did not start with a powerup, start a coroutine to spawn one within
-            // a certain time
-            //else
-            //{
-            //    StartCoroutine(SpawnPowerupDelay());
-            //}
+            SpawnEnemyWave(waveNumber);
         }
     }
 

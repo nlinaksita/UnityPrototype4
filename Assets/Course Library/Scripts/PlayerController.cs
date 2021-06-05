@@ -11,6 +11,7 @@ public class PlayerController : Character
     public Text playerLivesText;
     public GameObject forceField;
     private const int numRockets = 6;
+    public GameObject gameOverUI;
 
     private const string PU_BOUNCE = "Powerup_Bounce(Clone)";
     private const string PU_ROCKETS = "Powerup_Rockets(Clone)";
@@ -28,8 +29,10 @@ public class PlayerController : Character
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         playerRb = GetComponent<Rigidbody>();
         focalPoint = GameObject.Find("Focal Point");
+        gameOverUI.gameObject.SetActive(false);
 
         // Start off with 3 lives
         playerLives = 3;
@@ -189,5 +192,6 @@ public class PlayerController : Character
     {
         Time.timeScale = 0;
         //Debug.Log("Game Over");
+        gameOverUI.gameObject.SetActive(true);
     }
 }
