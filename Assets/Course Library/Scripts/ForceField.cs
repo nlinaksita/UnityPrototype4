@@ -26,5 +26,6 @@ public class ForceField : MonoBehaviour
             Vector3 awayFromPlayer = other.transform.position - player.transform.position;
             other.GetComponent<Rigidbody>().AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
         }
+        FindObjectOfType<AudioManager>().Play("ForceFieldContact");
     }
 }

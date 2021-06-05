@@ -11,6 +11,7 @@ public class Rocket : MonoBehaviour
     private const int zBounds = 30;
     private float powerupStrength = 30f;
     private Vector3 relativePos;
+    private float rocketSpeed = 20f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,7 @@ public class Rocket : MonoBehaviour
             relativePos = target.transform.position - transform.position;
             transform.rotation = Quaternion.LookRotation(relativePos);
             // move object forward
-            transform.Translate(Vector3.forward * Time.deltaTime * 20);
+            transform.Translate(Vector3.forward * Time.deltaTime * rocketSpeed);
 
             // Destroy the rocket if it is out of bounds
             if (transform.position.x < -xBounds || transform.position.x > xBounds ||

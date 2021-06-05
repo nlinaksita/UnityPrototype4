@@ -62,6 +62,7 @@ public class PlayerController : Character
             {
                 GameOver();
             } else {
+                FindObjectOfType<AudioManager>().Play("PlayerFall");
                 playerLivesText.text = "x " + playerLives;
 
                 // If the player has a powerup and falls, remove the powerup indicator
@@ -141,6 +142,7 @@ public class PlayerController : Character
                     break;
             }
             powerupIndicator[powerupIndex].gameObject.SetActive(true);
+            FindObjectOfType<AudioManager>().Play("PowerupPickup");
             StartCoroutine(PowerupCountdownRoutine());
         }
     }
@@ -160,10 +162,11 @@ public class PlayerController : Character
             Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position);
 
-            Debug.Log("Collided with " + collision.gameObject.name 
-                + " with powerup set to " + hasPowerup);
+            //Debug.Log("Collided with " + collision.gameObject.name 
+            //    + " with powerup set to " + hasPowerup);
 
             enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
+            FindObjectOfType<AudioManager>().Play("PlayerContact");
         }
     }
 
@@ -182,12 +185,14 @@ public class PlayerController : Character
     {
         // Enable force field
         forceField.gameObject.SetActive(true);
+        FindObjectOfType<AudioManager>().Play("PlayerForceFieldUp");
         StartCoroutine(DisableForceField());
     }
 
     IEnumerator DisableForceField()
     {
         yield return new WaitForSeconds(7);
+        FindObjectOfType<AudioManager>().Play("PlayerForceFieldDown");
         forceField.gameObject.SetActive(false);
     }
 

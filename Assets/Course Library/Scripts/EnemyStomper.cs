@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyStomper : Enemy
 {
-    private float stomperSpeed = 10f;
+    private float stomperSpeed = 2.5f;
     private float powerupStrength = 8f;
     private float jumpPower = 50f;
     private float stompPower = 100f;

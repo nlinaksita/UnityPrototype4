@@ -6,7 +6,7 @@ public class Enemy : Character
 {
     public Rigidbody enemyRb;
     GameObject player;
-    public float speed;
+    public float speed = 2.5f;
     // Start is called before the first frame update
     public virtual void Start()
     {

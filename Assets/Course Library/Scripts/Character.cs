@@ -31,6 +31,7 @@ public class Character : MonoBehaviour
             float rotation = (360 / (float)rockets) * i + relativeAngle;
             Instantiate(rocket, gameObject.transform.position, Quaternion.Euler(0, rotation, 0));
         }
+        FindObjectOfType<AudioManager>().Play("ShooterShoot");
     }
 
     public void FireRockets()
@@ -45,6 +46,7 @@ public class Character : MonoBehaviour
             Rocket r = instantiated.gameObject.GetComponent<Rocket>();
             r.target = targets[i].gameObject;
         }
+        FindObjectOfType<AudioManager>().Play("PlayerShoot");
     }
 
     // Stomping methods
@@ -63,6 +65,15 @@ public class Character : MonoBehaviour
 
         // Apply upward force
         rb.AddForce(Vector3.up * jp, ForceMode.Impulse);
+
+        switch (type) {
+            case TYPE_PLAYER:
+                FindObjectOfType<AudioManager>().Play("PlayerJump");
+                break;
+            case TYPE_ENEMY:
+                FindObjectOfType<AudioManager>().Play("StomperJump");
+                break;
+        }
 
         StartCoroutine(StompDown(rb, sp, ps, sr, type));
     }
@@ -91,6 +102,7 @@ public class Character : MonoBehaviour
                         sr,
                         ps);
                 }
+                FindObjectOfType<AudioManager>().Play("PlayerStomp");
                 break;
             case TYPE_ENEMY:
                 PlayerController p = FindObjectOfType<PlayerController>();
@@ -98,6 +110,7 @@ public class Character : MonoBehaviour
                     rb,
                     sr,
                     ps);
+                FindObjectOfType<AudioManager>().Play("StomperStomp");
                 break;
         }
 
